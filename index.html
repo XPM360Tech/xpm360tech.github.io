@@ -55,6 +55,7 @@
         </div>
 
         <div class="app-list">
+          <h3 class="category-title">Mobile</h3>
           <article class="app-item">
             <span class="app-number">01</span>
             <div class="app-details">
@@ -71,6 +72,7 @@
               OPEN APP <span aria-hidden="true">↗</span>
             </a>
           </article>
+          <h3 class="category-title">PC / Desktop</h3>
           <article class="app-item">
             <span class="app-number">02</span>
             <div class="app-details">
@@ -109,7 +111,37 @@
       <a class="footer-brand" href="#top">XPM<span>360</span>TECH</a>
       <p>Independent apps and digital tools.</p>
       <a class="footer-terms" href="terms.html">Terms</a>
+      <a
+        class="page-views"
+        href="https://hits.sh/xpm360tech.co.za/website-views/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="View XPM360Tech page-view statistics"
+      >
+        <img
+          data-src="https://hits.sh/xpm360tech.co.za/website-views.svg?label=page%20views&color=00D1B2&labelColor=121212"
+          alt="Page views"
+          width="92"
+          height="20"
+          hidden
+        />
+        <span class="page-views-status">Page views will be counted after publication.</span>
+      </a>
       <p class="copyright">© 2026 XPM360Tech</p>
     </footer>
+    <script>
+      const pageViewsBadge = document.querySelector(".page-views img");
+      const productionHosts = [
+        "xpm360tech.github.io",
+        "xpm360tech.co.za",
+        "www.xpm360tech.co.za",
+      ];
+
+      if (productionHosts.includes(window.location.hostname)) {
+        pageViewsBadge.src = pageViewsBadge.dataset.src;
+        pageViewsBadge.hidden = false;
+        document.querySelector(".page-views-status").hidden = true;
+      }
+    </script>
   </body>
 </html>
