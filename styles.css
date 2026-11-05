@@ -616,23 +616,6 @@ h2 {
   color: var(--teal);
 }
 
-.page-views {
-  display: inline-flex;
-  align-items: center;
-  min-height: 20px;
-}
-
-.page-views img {
-  display: block;
-  width: auto;
-  height: 20px;
-}
-
-.page-views-status {
-  color: var(--muted);
-  font-size: 10px;
-}
-
 .footer-brand {
   color: var(--teal);
   font-family: "Barlow Condensed", sans-serif;

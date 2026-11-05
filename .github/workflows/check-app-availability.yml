@@ -1,0 +1,47 @@
+name: Check app availability
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/check-app-availability.yml"
+  schedule:
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-apps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check published app URLs
+        shell: bash
+        run: |
+          failed=0
+
+          for url in \
+            "https://xpmdocumentreader.grok.me" \
+            "https://xpmapplayoutdesigner.grok.me"; do
+            if status=$(curl \
+              --fail \
+              --location \
+              --silent \
+              --show-error \
+              --output /dev/null \
+              --write-out '%{http_code}' \
+              --connect-timeout 10 \
+              --max-time 30 \
+              --retry 2 \
+              --retry-all-errors \
+              "$url"); then
+              echo "$url is available (HTTP $status)"
+            else
+              echo "::error title=App availability check failed::$url did not return a successful HTTP response (HTTP ${status:-unknown})"
+              failed=1
+            fi
+          done
+
+          exit "$failed"

@@ -170,22 +170,6 @@
       <a class="footer-brand" href="#top">Nor<span>Vil</span>Tech</a>
       <p>Independent apps and digital tools.</p>
       <a class="footer-terms" href="terms.html">Terms</a>
-      <a
-        class="page-views"
-        href="https://hits.sh/norvil.co.za/website-views/"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="View NorVilTech page-view statistics"
-      >
-        <img
-          data-src="https://hits.sh/norvil.co.za/website-views.svg?label=page%20views&color=00D1B2&labelColor=121212"
-          alt="Page views"
-          width="92"
-          height="20"
-          hidden
-        />
-        <span class="page-views-status">Page views will be counted after publication.</span>
-      </a>
       <p class="copyright">© 2026 NorVilTech</p>
     </footer>
     <button class="support-launcher" type="button" aria-haspopup="dialog" aria-controls="support-dialog">
@@ -237,23 +221,6 @@
         <p class="support-note">Your email app will open with the details filled in. Nothing is sent or stored on this website.</p>
       </form>
     </dialog>
-    <script>
-      const pageViewsBadge = document.querySelector(".page-views img");
-      const productionHosts = [
-        "xpm360tech.github.io",
-        "norvil.co.za",
-        "www.norvil.co.za",
-        "xpm360tech.co.za",
-        "www.xpm360tech.co.za",
-      ];
-
-      if (productionHosts.includes(window.location.hostname)) {
-        pageViewsBadge.src = pageViewsBadge.dataset.src;
-        pageViewsBadge.hidden = false;
-        document.querySelector(".page-views-status").hidden = true;
-      }
-
-    </script>
     <script src="interactions.js"></script>
   </body>
 </html>
