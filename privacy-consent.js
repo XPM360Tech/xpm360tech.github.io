@@ -157,7 +157,7 @@
 
   document.querySelectorAll("[data-analytics-app]").forEach((link) => {
     link.addEventListener("click", () => {
-      if (getSavedChoice() !== "accepted") return;
+      if (!analyticsLoaded || getSavedChoice() !== "accepted") return;
       recordAppInterest(link.dataset.analyticsApp, link.dataset.analyticsAction);
     });
   });
