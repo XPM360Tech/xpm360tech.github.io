@@ -32,7 +32,7 @@
     <main class="terms-page">
       <p class="eyebrow"><span></span> NORVILTECH / LEGAL</p>
       <h1>Website terms</h1>
-      <p class="terms-date">Version date: 27 October 2026</p>
+      <p class="terms-date">Version date: 5 November 2026</p>
 
       <aside class="terms-notice">
         <strong>Current status</strong>
@@ -134,8 +134,10 @@
 
         <h3>1.12 Privacy</h3>
         <p>
-          This website has no account, checkout, or contact form. If you email us, we use your
-          message and contact details to respond and handle the related enquiry. The linked apps
+          This website has no account or checkout. The support widget gathers your details in your
+          browser and opens your email app with a prepared message; it does not send or store your
+          information on this website. If you email us, we use your message and contact details to
+          respond and handle the related enquiry. The linked apps
           are on separate domains and may process information as described in their own notices or
           in-app disclosures. Review those disclosures before using an app, especially before
           submitting text, documents, or API credentials. The page-view badge in the footer loads
@@ -217,5 +219,55 @@
       <a class="footer-terms" href="terms.html" aria-current="page">Terms</a>
       <p class="copyright">© 2026 NorVilTech</p>
     </footer>
+    <button class="support-launcher" type="button" aria-haspopup="dialog" aria-controls="support-dialog">
+      <img src="norvil-tech-support.jpg" alt="" />
+      <span>Need help?</span>
+    </button>
+    <dialog class="support-dialog" id="support-dialog" aria-labelledby="support-title">
+      <div class="dialog-heading">
+        <div>
+          <p class="app-type">NORVILTECH / HERE TO HELP</p>
+          <h2 id="support-title">How can we help?</h2>
+        </div>
+        <form method="dialog"><button class="dialog-close" aria-label="Close">×</button></form>
+      </div>
+      <p class="support-intro">Tell us a little about your request and we’ll prepare an email to the right team.</p>
+      <form class="support-form" id="support-form">
+        <label>
+          What is this about?
+          <select name="requestType" required>
+            <option value="support">Technical support</option>
+            <option value="sales">Sales enquiry</option>
+          </select>
+        </label>
+        <label>
+          Your name
+          <input name="name" autocomplete="name" required />
+        </label>
+        <label>
+          Email address
+          <input name="email" type="email" autocomplete="email" required />
+        </label>
+        <label>
+          Phone number <span class="optional-label">(optional)</span>
+          <input name="phone" type="tel" autocomplete="tel" />
+        </label>
+        <label>
+          Company <span class="optional-label">(optional)</span>
+          <input name="company" autocomplete="organization" />
+        </label>
+        <label>
+          Subject
+          <input name="subject" required />
+        </label>
+        <label>
+          Description
+          <textarea name="description" rows="4" required></textarea>
+        </label>
+        <button class="support-submit" type="submit">CONTINUE TO EMAIL <span aria-hidden="true">↗</span></button>
+        <p class="support-note">Your email app will open with the details filled in. Nothing is sent or stored on this website.</p>
+      </form>
+    </dialog>
+    <script src="interactions.js"></script>
   </body>
 </html>
