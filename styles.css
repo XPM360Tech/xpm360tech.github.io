@@ -253,10 +253,6 @@ h2 {
   border-bottom: 1px solid var(--line);
 }
 
-.app-item-no-icon {
-  grid-template-columns: 10px minmax(0, 1fr) auto;
-}
-
 .app-actions {
   display: flex;
   flex-direction: column;
@@ -268,6 +264,25 @@ h2 {
   display: inline-flex;
   width: max-content;
   max-width: 100%;
+}
+
+.app-demo {
+  margin: 0 0 20px;
+}
+
+.app-demo video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  background: #000;
+}
+
+.app-demo figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
 }
 
 .app-item::before {
@@ -893,12 +908,8 @@ h2 {
     padding: 22px 0;
   }
 
-  .app-item-no-icon {
-    grid-template-columns: 10px minmax(0, 1fr);
-  }
-
-  .app-item-no-icon .app-actions {
-    grid-column: 2;
+  .app-item-media .app-actions {
+    grid-column: 3;
   }
 
   .app-icon {
