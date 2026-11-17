@@ -4,6 +4,37 @@ if (incomingParams.has("_ptxn")) {
   window.location.replace("checkout.html" + window.location.search);
 }
 
+// Paddle Checkout Integration
+const PADDLE_CLIENT_TOKEN = "test_c7e69318d828fb50215a9f1843f";
+
+if (typeof Paddle !== "undefined" && PADDLE_CLIENT_TOKEN) {
+  if (PADDLE_CLIENT_TOKEN.startsWith("test_")) {
+    Paddle.Environment.set("sandbox");
+  }
+  Paddle.Initialize({
+    token: PADDLE_CLIENT_TOKEN,
+  });
+}
+
+document.querySelectorAll("[data-paddle-price]").forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const priceId = btn.dataset.paddlePrice;
+    if (typeof Paddle !== "undefined" && PADDLE_CLIENT_TOKEN) {
+      Paddle.Checkout.open({
+        items: [{ priceId: priceId, quantity: 1 }],
+        settings: {
+          displayMode: "overlay",
+          theme: "dark",
+          successUrl: window.location.origin + "/checkout.html?status=success",
+        },
+      });
+    } else {
+      window.location.href = "checkout.html?price=" + encodeURIComponent(priceId);
+    }
+  });
+});
+
 const appList = document.querySelector(".app-list");
 
 if (appList) {

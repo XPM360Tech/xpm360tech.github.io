@@ -365,6 +365,19 @@ h2 {
   white-space: nowrap;
 }
 
+button.app-link {
+  background: transparent;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  padding-left: 0;
+  padding-right: 0;
+  font-family: inherit;
+  font-size: 10px;
+  cursor: pointer;
+  line-height: inherit;
+}
+
 .app-link span {
   color: var(--orange);
   font-size: 15px;

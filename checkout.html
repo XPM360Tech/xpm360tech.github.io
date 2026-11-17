@@ -124,14 +124,18 @@
       const messageEl = document.getElementById('checkout-message');
       const spinnerEl = document.getElementById('checkout-spinner');
 
+      const DEFAULT_PRICE_ID = 'pri_01m7msxbcmy64ghdgdey3wxnk2';
       const urlParams = new URLSearchParams(window.location.search);
       const txnId = urlParams.get('_ptxn');
+      const requestedPrice = urlParams.get('price');
       const isSuccess = urlParams.get('status') === 'success';
 
       if (isSuccess) {
         loadingEl.style.display = 'none';
         successEl.style.display = 'block';
-      } else if (txnId) {
+      } else {
+        const activePrice = requestedPrice || (txnId ? null : DEFAULT_PRICE_ID);
+
         if (
           typeof Paddle !== 'undefined' &&
           PADDLE_CLIENT_TOKEN &&
@@ -152,14 +156,21 @@
           });
 
           function launchPaddleCheckout() {
-            Paddle.Checkout.open({
-              transactionId: txnId,
+            const checkoutConfig = {
               settings: {
                 displayMode: 'overlay',
                 theme: 'dark',
                 successUrl: window.location.origin + window.location.pathname + '?status=success',
               },
-            });
+            };
+
+            if (txnId) {
+              checkoutConfig.transactionId = txnId;
+            } else if (activePrice) {
+              checkoutConfig.items = [{ priceId: activePrice, quantity: 1 }];
+            }
+
+            Paddle.Checkout.open(checkoutConfig);
           }
 
           launchPaddleCheckout();
@@ -179,9 +190,6 @@
           messageEl.textContent =
             'Paddle checkout is installed on this page. Add your Paddle Client-side token to PADDLE_CLIENT_TOKEN to start taking payments.';
         }
-      } else {
-        loadingEl.style.display = 'none';
-        emptyEl.style.display = 'block';
       }
     </script>
   </body>
