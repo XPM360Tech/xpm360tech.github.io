@@ -1,3 +1,9 @@
+// Redirect incoming Paddle payment links to the dedicated checkout page
+const incomingParams = new URLSearchParams(window.location.search);
+if (incomingParams.has("_ptxn")) {
+  window.location.replace("checkout.html" + window.location.search);
+}
+
 const appList = document.querySelector(".app-list");
 
 if (appList) {
