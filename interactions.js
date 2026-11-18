@@ -5,7 +5,7 @@ if (incomingParams.has("_ptxn")) {
 }
 
 // Paddle Checkout Integration
-const PADDLE_CLIENT_TOKEN = "test_c7e69318d828fb50215a9f1843f";
+const PADDLE_CLIENT_TOKEN = "live_395d50224c976bf19dec4f466d0";
 
 if (typeof Paddle !== "undefined" && PADDLE_CLIENT_TOKEN) {
   if (PADDLE_CLIENT_TOKEN.startsWith("test_")) {
