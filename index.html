@@ -58,55 +58,66 @@
 
         <div class="app-list">
           <section class="app-category" aria-labelledby="mobile-apps-title">
-            <h3 class="category-title" id="mobile-apps-title">Mobile apps</h3>
+            <h3 class="category-title" id="mobile-apps-title">Mobile / Android Apps</h3>
             <article class="app-item">
               <img
                 class="app-icon"
-                src="documentreader.jpg"
-                alt="NorVil Tech - Document Reader artwork: an open book with a play button and the words Read it aloud"
+                src="rollingdrum.png"
+                alt="NorVil Tech - Rolling Drum: Spin The Wheel 3D random picker artwork"
                 width="1200"
                 height="630"
               />
               <div class="app-details">
-                <p class="app-type">WEB APP / DOCUMENT READER</p>
+                <p class="app-type">ANDROID APP / RANDOM PICKER</p>
                 <div class="app-title">
-                  <h3>NorVil Tech - Document Reader</h3>
+                  <h3>Rolling Drum: Spin The Wheel</h3>
                 </div>
-                <p class="app-description">Turn PDFs, web pages, and pasted text into audio using a voice already installed on your device.</p>
-                <button class="more-info-link" type="button" data-dialog="reader-info">More info</button>
-                <dialog class="app-info-dialog" id="reader-info" aria-labelledby="reader-info-title">
+                <p class="app-description">
+                  A sleek 3D mechanical drum picker. Customize categories, swipe to spin with realistic physics and clicks, and make quick, fun decisions.
+                </p>
+                <button class="more-info-link" type="button" data-dialog="roller-info">More info</button>
+                <dialog class="app-info-dialog" id="roller-info" aria-labelledby="roller-info-title">
                   <div class="dialog-heading">
                     <div>
-                      <p class="app-type">A HANDY LISTENING COMPANION</p>
-                      <h2 id="reader-info-title">NorVil Tech - Document Reader</h2>
+                      <p class="app-type">3D MECHANICAL ROLLER DRUM</p>
+                      <h2 id="roller-info-title">Rolling Drum: Spin The Wheel</h2>
                     </div>
                     <form method="dialog"><button class="dialog-close" aria-label="Close">×</button></form>
                   </div>
                   <ul>
-                    <li>Listen to PDFs, web pages, or text you paste in.</li>
-                    <li>Use speech voices already available on your device.</li>
-                    <li>Give your eyes a break while catching up on reading.</li>
-                    <li>Open it in your browser without installing desktop software.</li>
+                    <li>Realistic 3D rolling cylinder with mechanical click physics and celebratory fanfare.</li>
+                    <li>Unlimited custom categories, colored tags, weights, and items.</li>
+                    <li>Global draw history to track past winners and selections.</li>
+                    <li>Ad-free and unlimited spins option available.</li>
+                    <li>Available as a direct Android APK download (Google Play Store release coming soon).</li>
                   </ul>
-                  <a class="app-link" data-analytics-app="document_reader" data-analytics-action="try" href="https://xpmdocumentreader.grok.me" target="_blank" rel="noopener noreferrer">
-                    TRY THE READER <span aria-hidden="true">↗</span>
+                  <a
+                    class="app-link"
+                    data-analytics-app="rolling_drum"
+                    data-analytics-action="download"
+                    href="Apps/RollingDrum.apk"
+                    download="RollingDrum.apk"
+                  >
+                    DOWNLOAD APK <span aria-hidden="true">↓</span>
                   </a>
                 </dialog>
               </div>
-              <a
-                class="app-link"
-                data-analytics-app="document_reader"
-                data-analytics-action="open"
-                href="https://xpmdocumentreader.grok.me"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                OPEN APP <span aria-hidden="true">↗</span>
-              </a>
+              <div class="app-actions">
+                <a
+                  class="app-link"
+                  data-analytics-app="rolling_drum"
+                  data-analytics-action="download"
+                  href="Apps/RollingDrum.apk"
+                  download="RollingDrum.apk"
+                >
+                  DOWNLOAD APK <span aria-hidden="true">↓</span>
+                </a>
+                <span class="coming-soon">GOOGLE PLAY COMING SOON</span>
+              </div>
             </article>
           </section>
           <section class="app-category" aria-labelledby="desktop-apps-title">
-            <h3 class="category-title" id="desktop-apps-title">PC / Desktop apps</h3>
+            <h3 class="category-title" id="desktop-apps-title">PC / Desktop Software</h3>
             <article class="app-item app-item-media">
               <img
                 class="app-icon"
@@ -189,6 +200,54 @@
                   BUY PREMIUM <span aria-hidden="true">→</span>
                 </button>
               </div>
+            </article>
+          </section>
+          <section class="app-category" aria-labelledby="web-apps-title">
+            <h3 class="category-title" id="web-apps-title">Web Browser Apps</h3>
+            <article class="app-item">
+              <img
+                class="app-icon"
+                src="documentreader.jpg"
+                alt="NorVil Tech - Document Reader artwork: an open book with a play button and the words Read it aloud"
+                width="1200"
+                height="630"
+              />
+              <div class="app-details">
+                <p class="app-type">WEB APP / DOCUMENT READER</p>
+                <div class="app-title">
+                  <h3>NorVil Tech - Document Reader</h3>
+                </div>
+                <p class="app-description">Turn PDFs, web pages, and pasted text into audio using a voice already installed on your device.</p>
+                <button class="more-info-link" type="button" data-dialog="reader-info">More info</button>
+                <dialog class="app-info-dialog" id="reader-info" aria-labelledby="reader-info-title">
+                  <div class="dialog-heading">
+                    <div>
+                      <p class="app-type">A HANDY LISTENING COMPANION</p>
+                      <h2 id="reader-info-title">NorVil Tech - Document Reader</h2>
+                    </div>
+                    <form method="dialog"><button class="dialog-close" aria-label="Close">×</button></form>
+                  </div>
+                  <ul>
+                    <li>Listen to PDFs, web pages, or text you paste in.</li>
+                    <li>Use speech voices already available on your device.</li>
+                    <li>Give your eyes a break while catching up on reading.</li>
+                    <li>Open it in your browser without installing desktop software.</li>
+                  </ul>
+                  <a class="app-link" data-analytics-app="document_reader" data-analytics-action="try" href="https://xpmdocumentreader.grok.me" target="_blank" rel="noopener noreferrer">
+                    TRY THE READER <span aria-hidden="true">↗</span>
+                  </a>
+                </dialog>
+              </div>
+              <a
+                class="app-link"
+                data-analytics-app="document_reader"
+                data-analytics-action="open"
+                href="https://xpmdocumentreader.grok.me"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                OPEN APP <span aria-hidden="true">↗</span>
+              </a>
             </article>
             <article class="app-item">
               <img
