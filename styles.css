@@ -922,6 +922,7 @@ button.app-link {
     padding: 22px 0;
   }
 
+  .app-actions,
   .app-item-media .app-actions {
     grid-column: 3;
   }
