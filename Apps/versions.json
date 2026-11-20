@@ -1,10 +1,10 @@
 {
   "za.co.norvil.roller": {
     "name": "Rolling Drum: Spin The Wheel",
-    "latest_version": "1.0.2",
-    "version_code": 3,
+    "latest_version": "1.0.3",
+    "version_code": 4,
     "download_url": "https://norvil.co.za/Apps/RollingDrum.apk",
-    "release_notes": "Enhanced 3D cylinder mechanical drum visuals, glowing flange hubs, and orbital roll energy."
+    "release_notes": "Restored clean, original rolling drum design with notch & animation fixes."
   },
   "norvil_pmo": {
     "name": "NorVil Tech - Personal Music Organizer",
