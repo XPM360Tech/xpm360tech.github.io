@@ -1,0 +1,21 @@
+{
+  "za.co.norvil.roller": {
+    "name": "Rolling Drum: Spin The Wheel",
+    "latest_version": "1.0.1",
+    "version_code": 2,
+    "download_url": "https://norvil.co.za/Apps/RollingDrum.apk",
+    "release_notes": "Fixed camera notch spacing and celebratory animations."
+  },
+  "norvil_pmo": {
+    "name": "NorVil Tech - Personal Music Organizer",
+    "latest_version": "0.2.1",
+    "download_url": "https://norvil.co.za/Apps/PersonalMusicOrganizer_Setup_v0.2.1.exe",
+    "release_notes": "Added official NorVil Tech Authenticode digital code signing."
+  },
+  "norvil_race_telemetry": {
+    "name": "NorVil Tech - Race Telemetry",
+    "latest_version": "1.0.0",
+    "download_url": "https://norvil.co.za/Apps/RaceTelemetry_Setup.exe",
+    "release_notes": "Initial release."
+  }
+}
