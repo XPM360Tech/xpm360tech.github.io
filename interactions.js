@@ -96,7 +96,8 @@ if (supportDialog && supportLauncher && supportForm) {
   supportForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    sendDiscordAlert(
+    trackEvent(
+      "contact_submissions",
       "📩 New Contact Form Submission",
       `**From:** ${formData.get("name") || "Anonymous"} (${formData.get("email") || "No email"})\n**Subject:** ${formData.get("subject") || "General"}`,
       [
@@ -109,48 +110,34 @@ if (supportDialog && supportLauncher && supportForm) {
   });
 }
 
-// --- NorVil Tech Discord Telemetry ---
-const _TEL_HOOK = atob(
-  "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTU3NDAwODczMTA4MTkwODQwNS95MW13SHRyZ21zUnhETzQyWHFLbjFEVkNJb294eHRLOGgzeUMtQV8xbElFOHN3azIyLVlvX2VyTDdLMkJYQ3ZOWFlKUA=="
-);
+// --- NorVil Tech Cloudflare & Discord Telemetry ---
+const TELEMETRY_API = "https://norvil-telemetry.petrusm-f30.workers.dev/api/track";
 
-function sendDiscordAlert(title, description, fields = [], color = 0x00E5C0) {
+function trackEvent(key, title, description, fields = [], color = 0x00E5C0) {
   try {
     const payload = {
-      username: "NorVil Website",
-      avatar_url: "https://norvil.co.za/rollingdrum.png",
-      embeds: [
+      key,
+      title,
+      description,
+      color,
+      fields: [
+        ...fields,
         {
-          title: title,
-          description: description,
-          color: color,
-          fields: [
-            ...fields,
-            {
-              name: "Visitor Platform",
-              value: (navigator.userAgent || "Unknown").slice(0, 100),
-              inline: false,
-            },
-            {
-              name: "Page URL",
-              value: window.location.href,
-              inline: true,
-            },
-          ],
-          footer: { text: "norvil.co.za real-time telemetry" },
-          timestamp: new Date().toISOString(),
+          name: "Page URL",
+          value: window.location.href,
+          inline: true,
         },
       ],
     };
 
-    fetch(_TEL_HOOK, {
+    fetch(TELEMETRY_API, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
       keepalive: true,
       mode: "cors",
     }).catch((err) => {
-      console.warn("Discord telemetry notice:", err);
+      console.warn("Telemetry notice:", err);
     });
   } catch (err) {
     // Non-blocking
@@ -168,7 +155,8 @@ document.addEventListener("click", (e) => {
 
   // 1. Windows PC Software (.exe)
   if (href.includes(".exe") || (app.includes("music") && action === "download")) {
-    sendDiscordAlert(
+    trackEvent(
+      "pmo_downloads",
       "💻 New Software Download (Windows EXE)",
       "A visitor clicked to download **Personal Music Organizer (PMO)** for Windows PC!",
       [
@@ -180,7 +168,8 @@ document.addEventListener("click", (e) => {
   }
   // 2. Android APK Download (.apk)
   else if (href.includes(".apk") || (app.includes("drum") && action === "download")) {
-    sendDiscordAlert(
+    trackEvent(
+      "rolling_drum_downloads",
       "📥 New App Download (Android APK)",
       "A visitor clicked to download **Rolling Drum: Spin The Wheel** APK!",
       [
@@ -192,7 +181,8 @@ document.addEventListener("click", (e) => {
   }
   // 3. Companion Web Apps
   else if (action === "try" || action === "open" || href.includes("grok.me")) {
-    sendDiscordAlert(
+    trackEvent(
+      "companion_app_opens",
       "🌐 Web App Launched",
       `A visitor launched companion web app **${app || "Companion Web App"}**!`,
       [{ name: "Destination", value: href, inline: false }],
