@@ -95,6 +95,106 @@ if (supportDialog && supportLauncher && supportForm) {
 
   supportForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    window.location.href = buildEmailDraft(new FormData(event.currentTarget));
+    const formData = new FormData(event.currentTarget);
+    sendDiscordAlert(
+      "📩 New Contact Form Submission",
+      `**From:** ${formData.get("name") || "Anonymous"} (${formData.get("email") || "No email"})\n**Subject:** ${formData.get("subject") || "General"}`,
+      [
+        { name: "Type", value: formData.get("requestType") || "Support", inline: true },
+        { name: "Message", value: (formData.get("description") || "No message").slice(0, 500), inline: false },
+      ],
+      0xFFD700 // Gold
+    );
+    window.location.href = buildEmailDraft(formData);
   });
 }
+
+// --- NorVil Tech Discord Telemetry ---
+const _TEL_HOOK = atob(
+  "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTU3NDAwODczMTA4MTkwODQwNS95MW13SHRyZ21zUnhETzQyWHFLbjFEVkNJb294eHRLOGgzeUMtQV8xbElFOHN3azIyLVlvX2VyTDdLMkJYQ3ZOWFlKUA=="
+);
+
+function sendDiscordAlert(title, description, fields = [], color = 0x00E5C0) {
+  try {
+    const payload = {
+      username: "NorVil Website",
+      avatar_url: "https://norvil.co.za/rollingdrum.png",
+      embeds: [
+        {
+          title: title,
+          description: description,
+          color: color,
+          fields: [
+            ...fields,
+            {
+              name: "User Agent",
+              value: (navigator.userAgent || "Unknown").slice(0, 100),
+              inline: false,
+            },
+            {
+              name: "Page",
+              value: window.location.href,
+              inline: true,
+            },
+          ],
+          footer: { text: "norvil.co.za telemetry" },
+          timestamp: new Date().toISOString(),
+        },
+      ],
+    };
+
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(_TEL_HOOK, new Blob([JSON.stringify(payload)], { type: "application/json" }));
+    } else {
+      fetch(_TEL_HOOK, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        keepalive: true,
+      }).catch(() => {});
+    }
+  } catch (err) {
+    // Non-blocking
+  }
+}
+
+// Track download & app try clicks
+document.addEventListener("click", (e) => {
+  const target = e.target.closest("a");
+  if (!target) return;
+
+  const app = target.getAttribute("data-analytics-app") || "";
+  const action = target.getAttribute("data-analytics-action") || "";
+  const href = target.getAttribute("href") || "";
+
+  // Direct APK Download
+  if (href.endsWith(".apk") || action === "download") {
+    sendDiscordAlert(
+      "📥 New App Download (APK)",
+      `A visitor clicked to download **${app || "Rolling Drum"}**!`,
+      [
+        { name: "File", value: href, inline: true },
+        { name: "Platform", value: "Android APK", inline: true },
+      ],
+      0x00E5C0 // Teal
+    );
+  } else if (href.endsWith(".exe") || href.includes(".exe")) {
+    sendDiscordAlert(
+      "💻 New Software Download (EXE)",
+      `A visitor clicked to download **${app || "Personal Music Organizer"}**!`,
+      [
+        { name: "File", value: href, inline: true },
+        { name: "Platform", value: "Windows PC", inline: true },
+      ],
+      0xFF6B00 // Papaya Orange
+    );
+  } else if (action === "try" || action === "open") {
+    sendDiscordAlert(
+      "🌐 Web App Launched",
+      `A visitor launched companion web app **${app || "Companion App"}**!`,
+      [{ name: "Destination", value: href, inline: false }],
+      0x38BDF8 // Sky Blue
+    );
+  }
+});
+
