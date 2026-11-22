@@ -127,32 +127,31 @@ function sendDiscordAlert(title, description, fields = [], color = 0x00E5C0) {
           fields: [
             ...fields,
             {
-              name: "User Agent",
+              name: "Visitor Platform",
               value: (navigator.userAgent || "Unknown").slice(0, 100),
               inline: false,
             },
             {
-              name: "Page",
+              name: "Page URL",
               value: window.location.href,
               inline: true,
             },
           ],
-          footer: { text: "norvil.co.za telemetry" },
+          footer: { text: "norvil.co.za real-time telemetry" },
           timestamp: new Date().toISOString(),
         },
       ],
     };
 
-    if (navigator.sendBeacon) {
-      navigator.sendBeacon(_TEL_HOOK, new Blob([JSON.stringify(payload)], { type: "application/json" }));
-    } else {
-      fetch(_TEL_HOOK, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-        keepalive: true,
-      }).catch(() => {});
-    }
+    fetch(_TEL_HOOK, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      keepalive: true,
+      mode: "cors",
+    }).catch((err) => {
+      console.warn("Discord telemetry notice:", err);
+    });
   } catch (err) {
     // Non-blocking
   }
@@ -160,38 +159,42 @@ function sendDiscordAlert(title, description, fields = [], color = 0x00E5C0) {
 
 // Track download & app try clicks
 document.addEventListener("click", (e) => {
-  const target = e.target.closest("a");
+  const target = e.target.closest("a, button");
   if (!target) return;
 
   const app = target.getAttribute("data-analytics-app") || "";
   const action = target.getAttribute("data-analytics-action") || "";
-  const href = target.getAttribute("href") || "";
+  const href = (target.getAttribute("href") || "").toLowerCase();
 
-  // Direct APK Download
-  if (href.endsWith(".apk") || action === "download") {
+  // 1. Windows PC Software (.exe)
+  if (href.includes(".exe") || (app.includes("music") && action === "download")) {
     sendDiscordAlert(
-      "📥 New App Download (APK)",
-      `A visitor clicked to download **${app || "Rolling Drum"}**!`,
+      "💻 New Software Download (Windows EXE)",
+      "A visitor clicked to download **Personal Music Organizer (PMO)** for Windows PC!",
       [
-        { name: "File", value: href, inline: true },
-        { name: "Platform", value: "Android APK", inline: true },
-      ],
-      0x00E5C0 // Teal
-    );
-  } else if (href.endsWith(".exe") || href.includes(".exe")) {
-    sendDiscordAlert(
-      "💻 New Software Download (EXE)",
-      `A visitor clicked to download **${app || "Personal Music Organizer"}**!`,
-      [
-        { name: "File", value: href, inline: true },
+        { name: "File", value: "PersonalMusicOrganizer_Setup_v0.2.1.exe", inline: true },
         { name: "Platform", value: "Windows PC", inline: true },
       ],
       0xFF6B00 // Papaya Orange
     );
-  } else if (action === "try" || action === "open") {
+  }
+  // 2. Android APK Download (.apk)
+  else if (href.includes(".apk") || (app.includes("drum") && action === "download")) {
+    sendDiscordAlert(
+      "📥 New App Download (Android APK)",
+      "A visitor clicked to download **Rolling Drum: Spin The Wheel** APK!",
+      [
+        { name: "File", value: "RollingDrum.apk", inline: true },
+        { name: "Platform", value: "Android", inline: true },
+      ],
+      0x00E5C0 // Teal
+    );
+  }
+  // 3. Companion Web Apps
+  else if (action === "try" || action === "open" || href.includes("grok.me")) {
     sendDiscordAlert(
       "🌐 Web App Launched",
-      `A visitor launched companion web app **${app || "Companion App"}**!`,
+      `A visitor launched companion web app **${app || "Companion Web App"}**!`,
       [{ name: "Destination", value: href, inline: false }],
       0x38BDF8 // Sky Blue
     );
